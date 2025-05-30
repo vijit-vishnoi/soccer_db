@@ -1,11 +1,12 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const FOOTBALL_API_KEY = 'fd15c23bca1e40788e6a955b1b5a9b31';
+const FOOTBALL_API_KEY =process.env.API_KEY;
 
 app.use(cors());
 
@@ -45,6 +46,9 @@ app.get('/upcoming', async (req, res) => {
     console.error('Error fetching data:', error.message);
     res.status(500).json({ error: 'Failed to fetch upcoming matches' });
   }
+});
+app.get('/', (req, res) => {
+  res.send('Soccer backend is live');
 });
 
 app.listen(PORT, () => {
